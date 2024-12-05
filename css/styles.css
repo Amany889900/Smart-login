@@ -1,0 +1,54 @@
+body{
+    background-color:#24353F;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+h1{
+    color:#17A2B8;
+}
+
+input.form-control{
+    background-color: #24353F;
+    color: white;
+}
+
+.form-control:focus{
+    background-color: #24353F;
+    color: white;
+}
+
+
+input.form-control::-webkit-input-placeholder {
+    color: #B6B6B6; /* For Chrome and Safari */
+}
+a:hover{
+    text-decoration: underline;
+}
+.btn{
+    color: #17A2B8;
+    margin: auto;
+    border-color: #17A2B8;
+}
+
+.btn:hover{
+    background-color: #17A2B8;
+    color: white;
+}
+
+.logOutBtn{
+    border: 1px solid #FFC107;
+    border-radius: 5px;
+    color:grey;
+    padding: 10px;
+    background-color: #24353F; ;
+}
+
+.logOutBtn:hover{
+    background-color: #FFC107;
+    color: white;
+}
+
