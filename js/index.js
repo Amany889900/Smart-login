@@ -50,26 +50,35 @@ function signUpPasswordValidator(){
   var regex =/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/ ;
   return regex.test(signUpPassword.value);
 }
-
+var used = 0;
 signUpBtn.addEventListener("click", function(){
 
     if(signUpEmailValidator() && signUpNameValidator() && signUpPasswordValidator()){
         for(var i=0; i<users.length; i++){
-            if(users[i].email === signUpEmail.value) alert('Email is already in use')
+            if(users[i].email === signUpEmail.value) {
+                
+                used = 1;
+                break;
+            }
         }
-        var user = {
-        email: signUpEmail.value,
-        password: signUpPassword.value,
-        name: signUpName.value
-       }
+        if(used) alert('Email is already in use');
 
-
-       users.push(user);
-       localStorage.setItem("arrayOfUsers",JSON.stringify(users));
-       signUp.classList.remove("d-block");
-       signUp.classList.add("d-none");
-       login.classList.remove("d-none");
-       login.classList.add("d-block");
+        else {
+            var user = {
+                email: signUpEmail.value,
+                password: signUpPassword.value,
+                name: signUpName.value
+               }
+        
+        
+               users.push(user);
+               localStorage.setItem("arrayOfUsers",JSON.stringify(users));
+               signUp.classList.remove("d-block");
+               signUp.classList.add("d-none");
+               login.classList.remove("d-none");
+               login.classList.add("d-block");
+        }
+        
     }
     else {
         switch(true){
@@ -88,6 +97,7 @@ signUpBtn.addEventListener("click", function(){
         }
     }
 })
+
 var flag =0;
 loginBtn.addEventListener("click",function(){
     for(var i=0; i<users.length; i++){
