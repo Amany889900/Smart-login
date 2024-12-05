@@ -12,6 +12,8 @@ var loginPassword = document.getElementById("loginPassword");
 var welcome = document.getElementById("welcome");
 var logOutBtn = document.getElementById("logOutBtn");
 var errorMsg = document.getElementById("errorMsg");
+var home = document.getElementById("home");
+
 var users = [];
 
 if(!localStorage.getItem("arrayOfUsers")){
@@ -97,22 +99,43 @@ signUpBtn.addEventListener("click", function(){
         }
     }
 })
-
-var flag =0;
-loginBtn.addEventListener("click",function(){
+var user = 0;
+function loginEmailValidator(){
     for(var i=0; i<users.length; i++){
-      if(users[i].email === loginEmail.value && users[i].password === loginPassword.value) {
-        flag =1;
+        if(users[i].email === loginEmail.value) {
+            user = i;
+          return 1;
+        }
       }
-    }
-    if(flag) {
+      return 0;
+}
+function loginPasswordValidator(){
+    for(var i=0; i<users.length; i++){
+        if(users[i].password === loginPassword.value) {
+            user = i;
+          return 1;
+        }
+      }
+      return 0;
+}
+
+loginBtn.addEventListener("click",function(){
+    if(loginEmailValidator() && loginPasswordValidator()) {
         login.classList.remove("d-block");
         login.classList.add("d-none");
-        welcome.classList.remove("d-none");
-        welcome.classList.add("d-block");
-        welcome.innerHTML+=`<div class="d-flex justify-content-center align-items-center vh-100"><h1 class="border border-black p-5">Welcome ${users[i-1].name}</h1></div>`;
+        home.classList.remove("d-none");
+        home.classList.add("d-block");
+        logOutBtn.classList.remove("d-none");
+        logOutBtn.classList.add("d-inline-block");
+        welcome.innerHTML+=`<h1 class="border border-black p-5">Welcome ${users[user].name}</h1>`;
     }
-    else alert('loginFailed');
+    else {
+        switch(true){
+            case !loginEmailValidator() && !loginPasswordValidator(): alert("Both fields are invalid");break;
+            case !loginEmailValidator(): alert("Email is invalid");break
+            case !loginPasswordValidator(): alert("Password is invalid");break;
+        }
+    }
 })
 
 logOutBtn.addEventListener("click", function(){
@@ -120,7 +143,8 @@ logOutBtn.addEventListener("click", function(){
     welcome.classList.add("d-none");
     login.classList.remove("d-none");
     login.classList.add("d-block");
-    
+    logOutBtn.classList.remove("d-inline-block");
+    logOutBtn.classList.add("d-none");
 })
 
 
